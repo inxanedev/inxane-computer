@@ -37,6 +37,8 @@ Labels are created by the 'instruction' (it's in quotes because it's not an actu
 After creating a label we can use it to jump to that label, for example with `jmp loop`, if we've defined a label called loop. This, along with the `jmp` family of instructions, makes simple control flow possible.
 
 There's another thing which is the `print <text>` instruction, which the compilers transforms into a bunch of `ascii-out` instructions.
+
+There is a big issue with my language's design, and that is that labels CANNOT be used before they're declared. You cannot jump to a label that is declared later in the code. This is unfortunately a limitation, but it doesn't make the language impossible to use.
 # Simulator details
 All the memory available to the program gets set to `0` using `memset`, so you can safely assume that all valid addresses in your program, from `0x0000` to `0x1000` will all have the value `0`. Therefore, you don't have to write a `mov` instruction to set anything to 0 at the beginning of the program.
 
