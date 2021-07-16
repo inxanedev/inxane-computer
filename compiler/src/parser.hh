@@ -5,19 +5,23 @@
 
 
 enum class InstructionByte {
-    EXIT       = 0x00,
-    MOV        = 0x01,
-    ADD        = 0x02,
-    SUB        = 0x03,
-    MUL        = 0x04,
-    DIV        = 0x05,
-    JE         = 0x06,
-    JNE        = 0x07,
-    JMP        = 0x08,
-    AOUT       = 0x09,
-    ASCII_AOUT = 0x0A,
-    OUT        = 0x0B,
-    ASCII_OUT  = 0x0C
+    EXIT,
+    MOV,
+    ADD,
+    SUB,
+    MUL,
+    DIV,
+    JE,
+    JNE,
+    JMP,
+    AOUT,
+    ASCII_AOUT,
+    OUT,
+    ASCII_OUT,
+    AADD,
+    ASUB,
+    AMUL,
+    ADIV
 };
 
 class Instruction {

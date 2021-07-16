@@ -25,6 +25,10 @@ Each instruction is on its own line, and the list of instructions is as follows:
 - `ascii-aout ADDRESS` - outputs the value at the ADDRESS as an ASCII character
 - `out VALUE` - outputs the VALUE as a number
 - `ascii-out VALUE` - outputs the VALUE as an ASCII character
+- `aadd ADDRESS ADDRESS` - adds the value at the second address to the value at the first address
+- `asub ADDRESS ADDRESS` - same as `aadd` but subtraction
+- `amul ADDRESS ADDRESS` - same as `aadd` but multiplication
+- `adiv ADDRESS ADDRESS` - same as `aadd` but division
 
 There are other lexical constructs in the language, such as labels.
 Labels are created by the 'instruction' (it's in quotes because it's not an actual instruction that is inside the binary, it's only for the compiler) with the obvious name of `label`, followed by the name of that label.
@@ -35,8 +39,6 @@ There's another thing which is the `print <text>` instruction, which the compile
 All the memory available to the program gets set to `0` using `memset`, so you can safely assume that all valid addresses in your program, from `0x0000` to `0x1000` will all have the value `0`. Therefore, you don't have to write a `mov` instruction to set anything to 0 at the beginning of the program.
 
 The instructions `aout, ascii-aout, out`, and `ascii-out` are non-standard, meaning that they don't have to be implemented by other simulators, they're only guaranteed to be implemented in the simulator in this repository.
-
-There will be more instructions in the future, which will make writing programs a lot easier. For example, I will implement an instruction like `add ADDRESS ADDRESS`, since that is not currently possible with the available instructions, and it'd definitely be useful.
 
 ## Usage
 ### Compiler

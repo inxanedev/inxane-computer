@@ -100,6 +100,34 @@ parsed_t parse_source(const std::vector<std::string>& source) {
             }
         } else if (tokens[0] == "label") {
             labels.push_back({tokens[1], line});
+        } else if (tokens[0] == "aadd") {
+            int32_t address_a = hex_to_int(tokens[1]);
+            if (address_a < 0 || address_a > 4096) throw std::invalid_argument("Address outside the valid range");
+            int32_t address_b = hex_to_int(tokens[2]);
+            if (address_b < 0 || address_b > 4096) throw std::invalid_argument("Address outside the valid range");
+
+            parsed.push_back(Instruction(InstructionByte::AADD, {address_a, address_b}));
+        } else if (tokens[0] == "asub") {
+            int32_t address_a = hex_to_int(tokens[1]);
+            if (address_a < 0 || address_a > 4096) throw std::invalid_argument("Address outside the valid range");
+            int32_t address_b = hex_to_int(tokens[2]);
+            if (address_b < 0 || address_b > 4096) throw std::invalid_argument("Address outside the valid range");
+
+            parsed.push_back(Instruction(InstructionByte::ASUB, {address_a, address_b}));
+        } else if (tokens[0] == "amul") {
+            int32_t address_a = hex_to_int(tokens[1]);
+            if (address_a < 0 || address_a > 4096) throw std::invalid_argument("Address outside the valid range");
+            int32_t address_b = hex_to_int(tokens[2]);
+            if (address_b < 0 || address_b > 4096) throw std::invalid_argument("Address outside the valid range");
+
+            parsed.push_back(Instruction(InstructionByte::AMUL, {address_a, address_b}));
+        } else if (tokens[0] == "adiv") {
+            int32_t address_a = hex_to_int(tokens[1]);
+            if (address_a < 0 || address_a > 4096) throw std::invalid_argument("Address outside the valid range");
+            int32_t address_b = hex_to_int(tokens[2]);
+            if (address_b < 0 || address_b > 4096) throw std::invalid_argument("Address outside the valid range");
+
+            parsed.push_back(Instruction(InstructionByte::ADIV, {address_a, address_b}));
         }
     }
     return {parsed, labels};
