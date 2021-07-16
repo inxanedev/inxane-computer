@@ -172,6 +172,20 @@ void compile(const parsed_t& parsed, const std::string& output_filename) {
             }
 
             byte_counter += 1 + 2 + 2 + 4;
+        } else if (ins.instruction == InstructionByte::INC) {
+            push_instruction();
+            push_address();
+        } else if (ins.instruction == InstructionByte::AMOV) {
+            push_instruction();
+
+            auto address_a = split_address(ins.arguments[0]);
+            auto address_b = split_address(ins.arguments[1]);
+            output_bytes.push_back(address_a.first);
+            output_bytes.push_back(address_a.second);
+            output_bytes.push_back(address_b.first);
+            output_bytes.push_back(address_b.second);
+
+            byte_counter += 1 + 2 + 2;
         }
     }
 

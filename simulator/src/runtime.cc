@@ -92,6 +92,12 @@ void Runtime::run() {
             } else {
                 pc += 8;
             }
+        } else if (ins == InstructionByte::INC) {
+            memory[concat_bytes(code[pc + 1], code[pc + 2])]++;
+            pc += 2;
+        } else if (ins == InstructionByte::AMOV) {
+            memory[concat_bytes(code[pc + 1], code[pc + 2])] = memory[concat_bytes(code[pc + 3], code[pc + 4])];
+            pc += 4;
         }
     }
 }
