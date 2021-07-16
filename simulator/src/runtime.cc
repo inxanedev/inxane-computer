@@ -80,6 +80,18 @@ void Runtime::run() {
         } else if (ins == InstructionByte::ADIV) {
             memory[concat_bytes(code[pc + 1], code[pc + 2])] /= memory[concat_bytes(code[pc + 3], code[pc + 4])];
             pc += 4;
+        } else if (ins == InstructionByte::AJE) {
+            if (memory[concat_bytes(code[pc + 1], code[pc + 2])] == memory[concat_bytes(code[pc + 3], code[pc + 4])]) {
+                pc = concat_bytes(code[pc + 5], code[pc + 6], code[pc + 7], code[pc + 8]) - 1;
+            } else {
+                pc += 8;
+            }
+        } else if (ins == InstructionByte::AJNE) {
+            if (memory[concat_bytes(code[pc + 1], code[pc + 2])] != memory[concat_bytes(code[pc + 3], code[pc + 4])]) {
+                pc = concat_bytes(code[pc + 5], code[pc + 6], code[pc + 7], code[pc + 8]) - 1;
+            } else {
+                pc += 8;
+            }
         }
     }
 }

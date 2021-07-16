@@ -29,6 +29,8 @@ Each instruction is on its own line, and the list of instructions is as follows:
 - `asub ADDRESS ADDRESS` - same as `aadd` but subtraction
 - `amul ADDRESS ADDRESS` - same as `aadd` but multiplication
 - `adiv ADDRESS ADDRESS` - same as `aadd` but division
+- `aje ADDRESS ADDRESS LABEL` - if values of the two ADDRESSes are the same, jump to the LABEL
+- `ajne ADDRESS ADDRESS LABEL` - if values of the two ADDRESSes are not the same, jump to the LABEL
 
 There are other lexical constructs in the language, such as labels.
 Labels are created by the 'instruction' (it's in quotes because it's not an actual instruction that is inside the binary, it's only for the compiler) with the obvious name of `label`, followed by the name of that label.

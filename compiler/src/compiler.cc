@@ -121,7 +121,7 @@ void compile(const parsed_t& parsed, const std::string& output_filename) {
                 output_bytes.push_back(byte);
             }
 
-            byte_counter += 1 + 2 + 4;
+            byte_counter += 1 + 2 + 4 + 4;
         } else if (ins.instruction == InstructionByte::AOUT || ins.instruction == InstructionByte::ASCII_AOUT) {
             push_instruction();
             push_address();
@@ -148,6 +148,23 @@ void compile(const parsed_t& parsed, const std::string& output_filename) {
             output_bytes.push_back(address_b.second);
 
             byte_counter += 1 + 2 + 2;
+        } else if (ins.instruction == InstructionByte::AJE || ins.instruction == InstructionByte::AJNE) {
+            push_instruction();
+            auto address_a = split_address(ins.arguments[0]);
+            auto address_b = split_address(ins.arguments[1]);
+            output_bytes.push_back(address_a.first);
+            output_bytes.push_back(address_a.second);
+            output_bytes.push_back(address_b.first);
+            output_bytes.push_back(address_b.second);
+
+            std::pair<std::string, uint32_t> label = search_label(ins.o_label_argument, labels);
+            auto offset_bytes = split_int32(label_offsets.at(label.first));
+
+            for (uint8_t byte : offset_bytes) {
+                output_bytes.push_back(byte);
+            }
+
+            byte_counter += 1 + 2 + 2 + 4;
         }
     }
 

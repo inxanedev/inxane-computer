@@ -21,7 +21,9 @@ enum class InstructionByte {
     AADD,
     ASUB,
     AMUL,
-    ADIV
+    ADIV,
+    AJE,
+    AJNE
 };
 
 class Instruction {
