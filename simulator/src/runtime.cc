@@ -66,7 +66,7 @@ void Runtime::run() {
             std::cout << static_cast<unsigned int>(concat_bytes(code[pc + 1], code[pc + 2], code[pc + 3], code[pc + 4]));
             pc += 4;
         } else if (ins == InstructionByte::ASCII_OUT) {
-            std::cout << static_cast<char>(concat_bytes(code[pc + 1], code[pc + 2], code[pc + 3], code[pc + 4]));
+            std::cout << static_cast<char>(code[pc + 1]);
             pc += 4;
         } else if (ins == InstructionByte::AADD) {
             memory[concat_bytes(code[pc + 1], code[pc + 2])] += memory[concat_bytes(code[pc + 3], code[pc + 4])];

@@ -127,7 +127,7 @@ void compile(const parsed_t& parsed, const std::string& output_filename) {
             push_address();
 
             byte_counter += 1 + 2;
-        } else if (ins.instruction == InstructionByte::OUT || ins.instruction == InstructionByte::ASCII_OUT) {
+        } else if (ins.instruction == InstructionByte::OUT) {
             push_instruction();
 
             auto value_bytes = split_int32(ins.arguments[0]);
@@ -136,6 +136,13 @@ void compile(const parsed_t& parsed, const std::string& output_filename) {
             }
 
             byte_counter += 1 + 4;
+        } else if (ins.instruction == InstructionByte::ASCII_OUT) {
+            push_instruction();
+
+            auto value_bytes = split_int32(ins.arguments[0]);
+            output_bytes.push_back(value_bytes[3]);
+
+            byte_counter += 1 + 1;
         } else if (ins.instruction == InstructionByte::AADD || ins.instruction == InstructionByte::ASUB || ins.instruction == InstructionByte::AMUL || ins.instruction == InstructionByte::ADIV) {
             push_instruction();
 
