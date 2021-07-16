@@ -158,6 +158,18 @@ parsed_t parse_source(const std::vector<std::string>& source) {
             if (address_b < 0 || address_b > 4096) throw std::invalid_argument("Address outside the valid range!");
 
             parsed.push_back(Instruction(InstructionByte::AMOV, {address_a, address_b}));
+        } else if (tokens[0] == "mod") {
+            int32_t address = hex_to_int(tokens[1]);
+            if (address < 0 || address > 4096) throw std::invalid_argument("Address outside the valid range!");
+            
+            parsed.push_back(Instruction(InstructionByte::MOD, {address, std::stoi(tokens[2])}));
+        } else if (tokens[0] == "amod") {
+            int32_t address_a = hex_to_int(tokens[1]);
+            if (address_a < 0 || address_a > 4096) throw std::invalid_argument("Address outside the valid range!");
+            int32_t address_b = hex_to_int(tokens[2]);
+            if (address_b < 0 || address_b > 4096) throw std::invalid_argument("Address outside the valid range!");
+
+            parsed.push_back(Instruction(InstructionByte::AMOD, {address_a, address_b}));
         }
     }
     return {parsed, labels};

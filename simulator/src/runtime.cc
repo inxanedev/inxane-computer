@@ -98,6 +98,12 @@ void Runtime::run() {
         } else if (ins == InstructionByte::AMOV) {
             memory[concat_bytes(code[pc + 1], code[pc + 2])] = memory[concat_bytes(code[pc + 3], code[pc + 4])];
             pc += 4;
+        } else if (ins == InstructionByte::MOD) {
+            memory[concat_bytes(code[pc + 1], code[pc + 2])] %= concat_bytes(code[pc + 3], code[pc + 4], code[pc + 5], code[pc + 6]);
+            pc += 6;
+        } else if (ins == InstructionByte::AMOD) {
+            memory[concat_bytes(code[pc + 1], code[pc + 2])] %= memory[concat_bytes(code[pc + 3], code[pc + 4])];
+            pc += 4;
         }
     }
 }

@@ -25,7 +25,9 @@ enum class InstructionByte {
     AJE,
     AJNE,
     INC,
-    AMOV
+    AMOV,
+    MOD,
+    AMOD
 };
 
 class Instruction {

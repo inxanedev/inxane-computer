@@ -33,6 +33,8 @@ Each instruction is on its own line, and the list of instructions is as follows:
 - `ajne ADDRESS ADDRESS LABEL` - if values of the two ADDRESSes are not the same, jump to the LABEL
 - `inc ADDRESS` - increments the value at the ADDRESS
 - `amov ADDRESS ADDRESS` - moves the value from the second address into the first address
+- `mod ADDRESS VALUE` - performs the modulo operation (remainder of division)
+- `amod ADDRESS ADDRESS` - performs the modulo operation of two addresses
 
 There are other lexical constructs in the language, such as labels.
 Labels are created by the 'instruction' (it's in quotes because it's not an actual instruction that is inside the binary, it's only for the compiler) with the obvious name of `label`, followed by the name of that label.
