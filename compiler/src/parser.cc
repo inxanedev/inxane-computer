@@ -3,6 +3,7 @@
 #include <sstream>
 #include <string>
 #include <stdexcept>
+#include <algorithm>
 
 #define get_address() int32_t address = hex_to_int(tokens[1]); if (address < 0 || address > 4096) throw std::invalid_argument("Address outside the valid range");
 
@@ -99,7 +100,12 @@ parsed_t parse_source(const std::vector<std::string>& source) {
                 parsed.push_back(Instruction(InstructionByte::ASCII_OUT, {static_cast<int32_t>('\n')}));
             }
         } else if (tokens[0] == "label") {
-            labels.push_back({tokens[1], line});
+            std::pair<std::string, uint32_t> label = {tokens[1], line};
+            if (std::find(labels.begin(), labels.end(), label) == labels.end()) {
+                labels.push_back(label);
+            } else {
+                throw std::logic_error("Multiple labels with the same name");
+            }
         } else if (tokens[0] == "aadd") {
             int32_t address_a = hex_to_int(tokens[1]);
             if (address_a < 0 || address_a > 4096) throw std::invalid_argument("Address outside the valid range");
