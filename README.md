@@ -30,4 +30,26 @@ There are other lexical constructs in the language, such as labels.
 Labels are created by the 'instruction' (it's in quotes because it's not an actual instruction that is inside the binary, it's only for the compiler) with the obvious name of `label`, followed by the name of that label.
 After creating a label we can use it to jump to that label, for example with `jmp loop`, if we've defined a label called loop. This, along with the `jmp` family of instructions, makes simple control flow possible.
 
-*TO BE CONTINUED, I GOTTA GO SOMEWHERE*
+There's another thing which is the `print <text>` instruction, which the compilers transforms into a bunch of `ascii-out` instructions.
+# Simulator details
+All the memory available to the program gets set to `0` using `memset`, so you can safely assume that all valid addresses in your program, from `0x0000` to `0x1000` will all have the value `0`. Therefore, you don't have to write a `mov` instruction to set anything to 0 at the beginning of the program.
+
+The instructions `aout, ascii-aout, out`, and `ascii-out` are non-standard, meaning that they don't have to be implemented by other simulators, they're only guaranteed to be implemented in the simulator in this repository.
+
+There will be more instructions in the future, which will make writing programs a lot easier. For example, I will implement an instruction like `add ADDRESS ADDRESS`, since that is not currently possible with the available instructions, and it'd definitely be useful.
+
+## Usage
+### Compiler
+`./compiler-binary "program.ipc" "output.bin"`
+### Simulator
+`./simulator-binary "output.bin"`
+
+# Example programs
+### Print numbers from 1 to 10
+    label loop
+    add 0x0000 1
+    aout 0x0000
+    ascii-out 10
+    jne 0x0000 10 loop
+    exit
+  We're gonna be looping, so we need a loop. We can do that via a label, so we create a label at the beginning, so we can jump to it later. Then, we add 1 to the memory location `0x0000`. Then, we output that value. In order to display each number on a new line, there's an instruction `ascii-out 10`, which prints a newline (newline is 10 in the ASCII table). Then, we check if we've reached 10 already, if we did we simply skip the instruction as if nothing happened, and exit the program. But if we didn't reach it yet, we jump back to the loop and run the program again, but this time, `0x0000` is gonna be of value `1`. And so on.
